@@ -1,12 +1,15 @@
 {
-  "buildCommand": "echo 'No build needed for static frontend'",
-  "outputDirectory": "frontend",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
     }
   ]
 }

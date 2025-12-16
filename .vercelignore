@@ -1,16 +1,19 @@
-# Ignore backend code - deploy backend separately to Railway/Render
-backend/
+# Deploy ONLY the frontend folder - backend goes to Railway/Render
+backend
 *.py
 requirements.txt
 .env
+.env.*
 schema.sql
 *.db
+*.session
+pyproject.toml
+Pipfile
+Pipfile.lock
 
-# Ignore old files
-main.py
-config.py
-database.py
-telegram_client.py
-sheets_manager.py
-ai_extractor.py
-utils.py
+# Documentation
+README.md
+README_NEW.md
+ARCHITECTURE.md
+DEPLOYMENT.md
+start.sh
