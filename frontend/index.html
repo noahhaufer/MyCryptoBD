@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Contacts Tracker</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="hidden">
+            <!-- Header -->
+            <header class="header">
+                <h1>My Contacts</h1>
+                <button id="export-btn" class="btn-primary">Export to Sheets</button>
+            </header>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-contacts">0</div>
+                    <div class="stat-label">Total Contacts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="exported-contacts">0</div>
+                    <div class="stat-label">Exported</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="new-contacts">0</div>
+                    <div class="stat-label">New</div>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search contacts..."
+                    class="search-input"
+                >
+            </div>
+
+            <!-- Contacts List -->
+            <div class="contacts-list" id="contacts-list">
+                <!-- Contacts will be inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-icon">📇</div>
+                <h2>No contacts yet</h2>
+                <p>Start chatting on Telegram and your contacts will appear here automatically</p>
+            </div>
+        </div>
+
+        <!-- Contact Detail Modal -->
+        <div id="contact-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-name">Contact Name</h2>
+                    <button id="close-modal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="contact-detail">
+                        <label>Username:</label>
+                        <span id="modal-username">-</span>
+                    </div>
+                    <div class="contact-detail">
+                        <label>Phone:</label>
+                        <span id="modal-phone">-</span>
+                    </div>
+                    <div class="contact-detail">
+                        <label>Company:</label>
+                        <input type="text" id="modal-company" placeholder="Enter company name">
+                    </div>
+                    <div class="contact-detail">
+                        <label>Notes:</label>
+                        <textarea id="modal-notes" placeholder="Add notes..."></textarea>
+                    </div>
+                    <div class="contact-detail">
+                        <label>Added:</label>
+                        <span id="modal-date">-</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-contact" class="btn-primary">Save Changes</button>
+                    <button id="delete-contact" class="btn-danger">Delete Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
