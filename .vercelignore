@@ -1,5 +1,6 @@
 # Deploy ONLY the frontend folder - backend goes to Railway/Render
 backend
+old_code
 *.py
 requirements.txt
 .env
@@ -10,10 +11,14 @@ schema.sql
 pyproject.toml
 Pipfile
 Pipfile.lock
+Procfile
+railway.toml
+runtime.txt
 
 # Documentation
 README.md
 README_NEW.md
 ARCHITECTURE.md
 DEPLOYMENT.md
+SETUP.md
 start.sh

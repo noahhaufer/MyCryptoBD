@@ -1,3 +1,6 @@
+# Old single-user code (archived)
+old_code/
+
 # Environment variables
 .env
 .env.local
