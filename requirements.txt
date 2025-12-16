@@ -31,7 +31,7 @@ pydantic-settings==2.1.0
 
 # Async & Utilities
 aiofiles==23.2.1
-httpx==0.26.0
+httpx~=0.25.0
 celery==5.3.6
 redis==5.0.1
 

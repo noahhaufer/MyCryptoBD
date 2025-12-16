@@ -1,0 +1,16 @@
+# Ignore backend code - deploy backend separately to Railway/Render
+backend/
+*.py
+requirements.txt
+.env
+schema.sql
+*.db
+
+# Ignore old files
+main.py
+config.py
+database.py
+telegram_client.py
+sheets_manager.py
+ai_extractor.py
+utils.py
