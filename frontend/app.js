@@ -12,6 +12,24 @@ let selectedContact = null;
 
 // Initialize the app
 async function init() {
+    // Check if opened in Telegram
+    if (!window.Telegram || !window.Telegram.WebApp || !tg.initData) {
+        document.getElementById('loading').innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <h2 style="font-size: 24px; margin-bottom: 16px;">⚠️ Open in Telegram</h2>
+                <p style="color: #666; line-height: 1.6;">
+                    This app only works when opened through your Telegram bot.
+                    <br><br>
+                    <strong>How to open:</strong><br>
+                    1. Find your bot on Telegram<br>
+                    2. Send /start<br>
+                    3. Click "Open Contacts Tracker"
+                </p>
+            </div>
+        `;
+        return;
+    }
+
     // Expand Telegram Web App
     tg.expand();
 
@@ -37,43 +55,43 @@ async function init() {
 
     } catch (error) {
         console.error('Initialization error:', error);
-        tg.showAlert('Failed to initialize app. Please try again.');
+        document.getElementById('loading').innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <h2 style="font-size: 24px; margin-bottom: 16px; color: #e53e3e;">❌ Error</h2>
+                <p style="color: #666;">
+                    ${error.message}
+                    <br><br>
+                    Please try again or contact support.
+                </p>
+            </div>
+        `;
     }
 }
 
 // Authenticate with backend using Telegram init data
 async function authenticate() {
-    try {
-        const initData = tg.initData;
+    const initData = tg.initData;
 
-        if (!initData) {
-            throw new Error('No Telegram init data available');
-        }
+    const response = await fetch(`${API_URL}/auth/telegram`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            init_data: initData
+        })
+    });
 
-        const response = await fetch(`${API_URL}/auth/telegram`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                init_data: initData
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Authentication failed');
-        }
-
-        const data = await response.json();
-        accessToken = data.access_token;
-        currentUser = data.user;
-
-        console.log('Authenticated successfully');
-
-    } catch (error) {
-        console.error('Authentication error:', error);
-        throw error;
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Authentication failed: ${errorText}`);
     }
+
+    const data = await response.json();
+    accessToken = data.access_token;
+    currentUser = data.user;
+
+    console.log('Authenticated successfully');
 }
 
 // Load contacts from backend

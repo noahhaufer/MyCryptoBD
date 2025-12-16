@@ -26,8 +26,8 @@ openai==1.10.0
 
 # Environment & Config
 python-dotenv==1.0.1
-pydantic==2.5.3
-pydantic-settings==2.1.0
+pydantic==2.10.5
+pydantic-settings==2.7.1
 
 # Async & Utilities
 aiofiles==23.2.1
