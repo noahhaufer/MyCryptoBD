@@ -16,12 +16,23 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable is not set")
 
+# For Supabase, we need to add connection parameters
+# Supabase uses connection pooling and requires specific parameters
+connect_args = {}
+if "supabase.co" in DATABASE_URL:
+    # Use connection pooling for Supabase
+    connect_args = {
+        "connect_timeout": 10,
+        "options": "-c statement_timeout=60000"
+    }
+
 # Create engine
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True,
     pool_size=10,
-    max_overflow=20
+    max_overflow=20,
+    connect_args=connect_args
 )
 
 # Create session factory
