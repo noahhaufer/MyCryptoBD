@@ -2,6 +2,6 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "python backend/bot.py & uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+startCommand = "PYTHONPATH=/app python backend/bot.py & PYTHONPATH=/app uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 100
